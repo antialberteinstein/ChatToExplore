@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tomcat context fragment to expose the host filesystem images folder
+  into the web application's `/images` path using a DirResourceSet.
+
+  This maps the directory `${user.home}/FinalProject/images` (e.g.
+  `/Users/nhat/FinalProject/images`) into the webapp at `/images` so
+  requests to `/yourContext/images/<file>` are served from that folder.
+
+  Notes:
+  - Tomcat substitutes system properties (e.g. ${user.home}).
+  - Place this file in the deployed application's `META-INF/context.xml`
+    or copy the relevant <Resources> section into your Tomcat context
+    configuration (e.g., conf/Catalina/localhost/FinalProject.xml) if
+    you manage Tomcat outside the application.
+  - Restart Tomcat after deployment for the change to take effect.
+-->
+<Context>
+  <Resources>
+    <PreResources className="org.apache.catalina.webresources.DirResourceSet"
+                  base="${user.home}/FinalProject/images"
+                  webAppMount="/images" />
+  </Resources>
+</Context>
