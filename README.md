@@ -1,94 +1,84 @@
-# ChatToExplore - Hệ thống Hỗ trợ Tìm kiếm và Trò chuyện Thông minh
+<div align="center">
+  <picture>
+    <img alt="ChatToExplore Preview" src="preview_images/preview.png" width="80%">
+  </picture>
+</div>
 
-**ChatToExplore** là một dự án phần mềm tích hợp đa ngôn ngữ (Java, Python) cung cấp khả năng tìm kiếm và trò chuyện thông minh sử dụng Mô hình Ngôn ngữ Lớn (LLM). Dự án được thiết kế theo mô hình MVC và triển khai trên nền tảng Web.
+<div align="center">
+  <h3>Trò chuyện với Chatbot để biết thêm về các nhân vật lịch sử Việt Nam.</h3>
+</div>
 
-## 🚀 Tính năng chính
+<div align="center">
+  <a href="https://github.com/antialberteinstein/ChatToExplore/stargazers" target="_blank"><img src="https://img.shields.io/github/stars/antialberteinstein/ChatToExplore?style=social" alt="GitHub stars"></a>
+  <a href="https://github.com/antialberteinstein/ChatToExplore/network/members" target="_blank"><img src="https://img.shields.io/github/forks/antialberteinstein/ChatToExplore?style=social" alt="GitHub forks"></a>
+  <img src="https://img.shields.io/badge/Java-8%2B-blue" alt="Java 8+">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-yellow" alt="Python 3.10+">
+  <img src="https://img.shields.io/badge/Tomcat-9.x-orange" alt="Tomcat 9">
+  <img src="https://img.shields.io/badge/MySQL-8.0%2B-lightgrey" alt="MySQL">
+</div>
 
-*   **Trò chuyện thông minh (Chat Executor)**: Tích hợp mô hình `Gemma-2-9b-it` (thông qua thư viện Llama Java binding) để phản hồi người dùng tự nhiên.
-*   **Tìm kiếm thông tin (Search Executor)**: Module Python sử dụng Google GenAI để xử lý và tìm kiếm thông tin.
-*   **Giao diện Web**: Giao diện người dùng thân thiện, tương tác với hệ thống qua trình duyệt.
-*   **Quản lý dữ liệu**: Lưu trữ lịch sử và thông tin người dùng bằng MySQL.
+**ChatToExplore** là một dự án phần mềm tích hợp đa ngôn ngữ (Java, Python) cung cấp giao diện một timeline lưu trữ các anh hùng trong lịch sử Việt Nam, cho phép người dùng có thể giao tiếp với một Agent Chatbot để tìm hiểu thông tin về các anh hùng và tự động thêm các nhân vật lịch sử vào timeline. Dự án được thiết kế theo mô hình MVC và triển khai trên nền tảng Web.
 
-## 🛠 Yêu cầu hệ thống
+---
 
-Để chạy dự án, bạn cần cài đặt các công cụ sau:
+> [!NOTE]  
+> Hệ thống cần Model LLM (ví dụ: `gemma-3-4b-it-Q4_0.gguf`) để đảm bảo khả năng tương tác tự nhiên. Trọng lượng model khoảng 1-2GB (bản Q4) và yêu cầu tải thủ công.
 
-*   **Java Development Kit (JDK)**: Phiên bản 8 trở lên.
-*   **Maven**: Phiên bản 3.9.x.
-*   **Python**: Phiên bản 3.10.x hoặc 3.11.x (Khuyên dùng `pyenv`, `anaconda`, hoặc `uv` để quản lý phiên bản).
-*   **MySQL**: Cơ sở dữ liệu.
+## 🌟 Tại sao chọn ChatToExplore?
 
-## 📦 Cài đặt
+ChatToExplore hỗ trợ người dùng có một không gian trực quan và sinh động để học tập lịch sử, thông qua một Flow Agent tích hợp cùng lúc nhiều công cụ mạnh mẽ:
+
+Sử dụng ChatToExplore để:
+- **Khám phá lịch sử tự nhiên**. Trò chuyện với trợ lý AI am hiểu lịch sử, kết hợp năng lực suy luận của LLM và khả năng Web Search (dựa vào API của Google GenAI) để liên tục cập nhật kiến thức ngoài luồng sinh học.
+- **Luồng xử lý thông minh (Agent Workflow)**. Ứng dụng mô hình AI chủ động (Agentic) với Few-shot prompting, giúp Bot quyết định khi nào cần tìm kiếm, khi nào cần cấu trúc văn bản thành object và tự động tạo mới Figure trên form Timeline.
+- **Trực quan & Thu hút**. Quan sát các sự kiện và nhân vật lịch sử thông qua UI thiết kế dạng Timeline rõ ràng, dễ nhìn, dễ tiếp cận.
+- **Kiến trúc bền vững & Dễ mở rộng**. Thiết kế dưới dạng Micro-executor độc lập phân vùng rãnh rẽ: Chat Executor (Java/Llama.cpp), Search Executor (Python) và Web Application Interface (Java Servlet/JSP). Mang lại khả năng tháo lắp linh động với mọi platform.
+
+## 🧩 Hệ sinh thái & Công nghệ
+
+ChatToExplore vận hành dựa trên sự kết hợp chặt chẽ giữa 3 bộ phận:
+
+- **Chat Executor** *(viết bằng Java)* – Quản lý tiến trình trò chuyện, sử dụng thư viện Llama Java binding để mapping mô hình GGUF. Nó làm nhiệm vụ sinh (generate) text, lập luận (reasoning) và phân rẽ hướng người dùng nhằm gọi các tools tương ứng.
+- **Search Executor** *(viết bằng Python)* – Được xem như cánh tay nối dài ra Internet, module xử lý NLP và trích xuất ngữ cảnh hữu ích thông qua Google GenAI trước khi trả về.
+- **Web Interface** *(JSP/Servlet, MySQL, Tomcat)* – Trái tim của ứng dụng Web (MVC). Xử lý định tuyến Timeline, authentication tài khoản, đồng thời là Client giao tiếp với Chat Executor.
+
+## 📦 Cài đặt & Khởi chạy
 
 ### 1. Chuẩn bị môi trường
 
-1.  **Cài đặt Python dependencies**:
-    Di chuyển vào thư mục `src/search_executor/` và chạy lệnh:
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *Lưu ý*: Kiểm tra và cài đặt đúng phiên bản Python yêu cầu.
+- **Cài đặt Python dependencies** (Tại thư mục `src/search_executor/`):
+  ```bash
+  pip install -r requirements.txt
+  ```
+- **Cơ sở dữ liệu (MySQL)**:
+  Thực thi file `database.sql` ở thư mục gốc để khởi tạo schema cho DB. Nhớ cập nhật cấu hình thông tin kết nối trong `src/main/java/config/DatabaseManager.java`.
 
-2.  **Cài đặt Cơ sở dữ liệu (MySQL)**:
-    *   Tải và cài đặt MySQL Server.
-    *   Chạy file `database.sql` (ở thư mục gốc) để tạo cấu trúc bảng (Hệ thống có thể tự động tạo khi khởi chạy, nhưng khuyến khích chạy thủ công để đảm bảo).
-    *   Cấu hình kết nối Database trong file `src/main/java/config/DatabaseManager.java`:
-        ```java
-        private static final String DB_HOST = "localhost";
-        private static final String DB_PORT = "3306"; // Cổng mặc định
-        private static final String DB_NAME = "finalproject";
-        private static final String DB_USERNAME = "root"; // Username của bạn
-        private static final String DB_PASSWORD = "YOUR_PASSWORD"; // Mật khẩu của bạn
-        ```
+- **Tải Model LLM**:
+  Tải model [gemma-3-4b-it-Q4_0.gguf](https://huggingface.co/unsloth/gemma-3-4b-it-GGUF/blob/main/gemma-3-4b-it-Q4_0.gguf) và đưa vào thư mục `src/chat_executor/models/`. Cấu hình file `.env` chứa API Key nếu có yêu cầu.
 
-3.  **Tải Model LLM**:
-    *   Do kích thước lớn, model không được đính kèm trong source code.
-    *   Tải model `gemma-3-4b-it-Q4_0.gguf` từ HuggingFace:
-        [Link tải Model](https://huggingface.co/unsloth/gemma-3-4b-it-GGUF/blob/main/gemma-3-4b-it-Q4_0.gguf)
-    *   Tạo thư mục `src/chat_executor/models/` và đặt file model đã tải vào đó.
-    *   *Lưu ý*: Model yêu cầu khoảng 1-2GB RAM. Nếu máy yếu hơn, hãy dùng bản `Q3_K_S`; nếu mạnh hơn (>32GB RAM), hãy dùng bản `BF16`.
+### 2. Chạy chương trình
 
-### 2. Biến môi trường
+Do hệ thống hoạt động đa Executor, bạn cần thiết lập chạy lần lượt các quy trình sau mỗi khi start:
 
-Đảm bảo cấu hình các biến môi trường cần thiết (ví dụ API Keys cho Google GenAI) trong file `.env` tại các thư mục tương ứng (tham khảo `.gitignore` để biết vị trí file `env` cần tạo).
-
-## ▶️ Chạy chương trình
-
-### Bước 1: Khởi chạy module Search (Python)
-Tại thư mục `src/search_executor/`:
+**Bước 1: Khởi chạy Search (Python)**
 ```bash
+cd src/search_executor/
 python main.py
-# hoặc python3 main.py
 ```
 
-### Bước 2: Khởi chạy module Chat (Java)
-Tại thư mục `src/chat_executor/`:
-*   **Linux/macOS**:
-    ```bash
-    ./build.sh  # Chỉ chạy lần đầu hoặc khi clean build
-    ./run.sh
-    ```
-*   **Windows**:
-    ```bash
-    mvn clean compile
-    mvn package
-    java -jar .\target\chat_executor\chat_executor-1.0-SNAPSHOT.jar
-    ```
-
-### Bước 3: Khởi chạy Web Server
-Tại thư mục gốc của dự án:
+**Bước 2: Khởi chạy Chat (Java)**
 ```bash
-mvn cargo:run
+cd src/chat_executor/
+./run.sh   # Trên môi trường bash (Linux, macOS, Git Bash)
+# Hoặc trên Windows: mvn clean package && java -jar .\target\chat_executor\chat_executor-1.0-SNAPSHOT.jar
 ```
-*Lệnh này sẽ tải và chạy Tomcat 9 server.*
 
-Nếu gặp lỗi, hãy thử chạy lần lượt:
+**Bước 3: Khởi chạy Web Server**
+Trở lại thư mục root của dự án, sử dụng Maven Cargo Plugin nhúng Tomcat 9:
 ```bash
-mvn clean compile
-mvn package
-mvn cargo:run
+mvn initialize cargo:run
 ```
+*(Lệnh `initialize` sẽ giúp tạo tự động các thư mục ảnh tĩnh bị thiếu)*.
 
 ## 🤝 Đóng góp
-
-Dự án được phát triển như một bài tập lớn/đồ án môn học Lập trình mạng.
+Nhat Nguyen - antialberteinstein.

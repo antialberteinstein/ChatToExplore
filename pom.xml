@@ -148,11 +148,32 @@
                 <version>3.8.2</version>
             </plugin>
             
+            <!-- Antrun Plugin to automatically generate the external images directory -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>create-images-directory</id>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${user.home}/FinalProject/images" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- Cargo Maven Plugin for Tomcat 9 -->
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven3-plugin</artifactId>
-                <version>1.10.10</version>
+                <version>1.10.6</version>
                 <configuration>
                     <container>
                         <containerId>tomcat9x</containerId>
